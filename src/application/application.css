@@ -1,0 +1,12 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.combo-box .cell {
+     -fx-text-fill: #c29400;
+     -fx-background-color:  #005365;
+     -fx-font-size: 16;
+     -fx-font-weight: 800;
+}
+.combo-box .cell:hover {
+     -fx-text-fill: #005365;
+     -fx-background-color:  #c29400;
+     -fx-font-size: 16;
+}
