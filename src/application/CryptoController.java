@@ -9,6 +9,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,21 +27,30 @@ public class CryptoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		algorithm.getItems().add("Caesar Cipher");
+		ObservableList<String> algorithms = FXCollections.observableArrayList("Caeser Cipher", "Playfair","DES");
+		algorithm.getItems().addAll(algorithms);
 		key.setStyle("-fx-text-fill:#c29400");
 
 	}
 
 	public void encryptDecrypt(ActionEvent e) {
-		/*switch (algorithm.getSelectionModel().getSelectedIndex()) {
+		switch (algorithm.getSelectionModel().getSelectedIndex()) {
 		case 0:
 			caeserCipher();
 			break;
+		case 1:
+			playFair();
+			break;
+		case 2:
+			if(plain.getText().length()>0)
+			encrypted.setText(DES.encrypt(plain.getText(), key.getText()));
+			else if(encrypted.getText().length()>0)
+				plain.setText(DES.decrypt(encrypted.getText(), key.getText()));
+			break;
 		default:
 			caeserCipher();
-		}*/
-		playFair();
+		}
+
 	}
 
 	public void caeserCipher() {
@@ -98,9 +109,7 @@ public class CryptoController implements Initializable {
 
 	public void playFair() {
 		StringBuilder plain = new StringBuilder(this.plain.getText());
-
 		String keyWord = this.key.getText();
-
 		StringBuilder cipher = new StringBuilder();
 		StringBuilder matrix = new StringBuilder(keyWord + "abcdefghijklmnopqrstuvwxyz");
 		Set<Character> seen = new HashSet<Character>();
@@ -113,7 +122,6 @@ public class CryptoController implements Initializable {
 				tempMatrix.append(matrix.charAt(i));
 			}
 		}
-
 		matrix = tempMatrix;
 		for (int i = 0; i < plain.length() - 1; i += 2) {
 			if (plain.charAt(i) == plain.charAt(i + 1)) {
